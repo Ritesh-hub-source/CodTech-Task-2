@@ -1,1 +1,1 @@
-# CodTech-Task-2
+# Codtech-Task-2
