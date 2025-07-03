@@ -1,0 +1,35 @@
+#include <iostream>
+#include <thread>
+#include <map>
+#include <string>
+#include <chrono>
+
+using namespace std;
+using namespace std::chrono_literals;
+
+void RefreshForecast(std::map<std::string, int>& forecastMap) {
+    while (true) {
+        for (auto& item : forecastMap) {
+            item.second++;
+            cout << item.first << " = " << item.second << endl;
+        }
+        this_thread::sleep_for(2000ms);
+        cout << "---- Updating Forecast ----\n";
+    }
+}
+
+int main() {
+    map<string, int> forecastMap = {
+        {"New Delhi", 20},
+        {"Jharkhand", 25},
+        {"Odisha", 22}
+    };
+
+    thread bgWorker(RefreshForecast, std::ref(forecastMap));
+
+    system("pause>nul"); // Windows only
+    bgWorker.join();     // optional if you want the main thread to wait for background thread
+    return 0;
+}
+
+
